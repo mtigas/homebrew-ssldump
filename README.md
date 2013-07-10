@@ -2,13 +2,17 @@
 
 This repository contains a modified **[ssldump][ssldump]** formula for
 [Homebrew][brew], patched to fix support for building with the OpenSSL
-Homebrew formula. (ssldump normally compiles with it's own version of 
+Homebrew formula.
+
+See [gist 5969597][gist_5969597] for example outputs (comparing unmodified
+ssldump and the patched ssldump).
 
 **You will need to [install Homebrew][brew_install] to use this**, see
 [here][brew_install].
 
 [ssldump]: http://www.rtfm.com/ssldump/
 [brew]: http://mxcl.github.com/homebrew/
+[gist_5969597]: https://gist.github.com/mtigas/5969597
 [brew_install]: https://github.com/mxcl/homebrew/wiki/installation
 
 ## Usage
