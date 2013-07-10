@@ -237,7 +237,6 @@ __END__
  		65412,
  		"TLS_ECDH_ECDSA_EXPORT_WITH_RC4_40_SHA",
  		0	},
-+	{
 +	/***** Patch additions from following URL *****/
 +	/* https://github.com/jtapiath-cl/gokik/blob/0de0f3e7/Security.framework/Headers/CipherSuite.h */
 +	{
