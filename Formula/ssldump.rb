@@ -82,7 +82,7 @@ __END__
        ABORT(R_NO_MEMORY);
      if(!(d->ssl_ctx=SSL_CTX_new(SSLv23_server_method())))
 --- a/ssl/ssl.enums	2013-07-10 15:43:35.000000000 -0400
-+++ b/ssl/ssl.enums	2013-07-10 15:43:40.000000000 -0400
++++ b/ssl/ssl.enums	2013-07-10 15:54:11.000000000 -0400
 @@ -378,6 +378,141 @@
      CipherSuite	TLS_ECDH_ECDSA_WITH_DES_CBC_SHA  = {0x00,0x49};
      CipherSuite	TLS_ECDH_ECDSA_EXPORT_WITH_RC4_56_SHA={0xff,0x85};
@@ -225,15 +225,9 @@ __END__
    } cipher_suite;  
  
      	   
-@@ -416,4 +551,4 @@
-    select {
-         rsa_sign(1), dss_sign(2), rsa_fixed_dh(3), dss_fixed_dh(4),
-         (255)
--   } client_certificate_type;
-+   } client_certificate_type;cipher_suite_decoder
 --- a/ssl/ssl.enums.c	2013-07-10 14:54:38.000000000 -0400
-+++ b/ssl/ssl.enums.c	2013-07-10 15:44:15.000000000 -0400
-@@ -698,6 +698,394 @@
++++ b/ssl/ssl.enums.c	2013-07-10 15:51:46.000000000 -0400
+@@ -698,6 +698,393 @@
  		65412,
  		"TLS_ECDH_ECDSA_EXPORT_WITH_RC4_40_SHA",
  		0	},
