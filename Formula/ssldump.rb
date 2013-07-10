@@ -623,7 +623,7 @@ __END__
 +	{
 +		65535,
 +		"SSL_NO_SUCH_CIPHERSUITE",
-+		0	}
++		0	},
 +	/***** /Patch additions *****/
  {-1}
  };
