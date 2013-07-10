@@ -9,6 +9,7 @@ Homebrew formula. (ssldump normally compiles with it's own version of
 
 [ssldump]: http://www.rtfm.com/ssldump/
 [brew]: http://mxcl.github.com/homebrew/
+[brew_install]: https://github.com/mxcl/homebrew/wiki/installation
 
 ## Usage
 
