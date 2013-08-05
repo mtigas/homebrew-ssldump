@@ -83,7 +83,7 @@ __END__
      if(!(d->ssl_ctx=SSL_CTX_new(SSLv23_server_method())))
 --- a/ssl/ssl.enums	2013-07-10 15:43:35.000000000 -0400
 +++ b/ssl/ssl.enums	2013-07-10 15:54:11.000000000 -0400
-@@ -378,6 +378,141 @@
+@@ -378,6 +378,168 @@
      CipherSuite	TLS_ECDH_ECDSA_WITH_DES_CBC_SHA  = {0x00,0x49};
      CipherSuite	TLS_ECDH_ECDSA_EXPORT_WITH_RC4_56_SHA={0xff,0x85};
      CipherSuite	TLS_ECDH_ECDSA_EXPORT_WITH_RC4_40_SHA={0xff,0x84};
@@ -254,7 +254,7 @@ __END__
      	   
 --- a/ssl/ssl.enums.c	2013-07-10 14:54:38.000000000 -0400
 +++ b/ssl/ssl.enums.c	2013-07-10 15:51:46.000000000 -0400
-@@ -698,6 +698,393 @@
+@@ -698,6 +698,473 @@
  		65412,
  		"TLS_ECDH_ECDSA_EXPORT_WITH_RC4_40_SHA",
  		0	},
