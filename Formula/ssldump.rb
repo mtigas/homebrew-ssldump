@@ -83,7 +83,7 @@ __END__
      if(!(d->ssl_ctx=SSL_CTX_new(SSLv23_server_method())))
 --- a/ssl/ssl.enums	2013-07-10 15:43:35.000000000 -0400
 +++ b/ssl/ssl.enums	2013-07-10 15:54:11.000000000 -0400
-@@ -378,6 +378,141 @@
+@@ -378,6 +378,168 @@
      CipherSuite	TLS_ECDH_ECDSA_WITH_DES_CBC_SHA  = {0x00,0x49};
      CipherSuite	TLS_ECDH_ECDSA_EXPORT_WITH_RC4_56_SHA={0xff,0x85};
      CipherSuite	TLS_ECDH_ECDSA_EXPORT_WITH_RC4_40_SHA={0xff,0x84};
@@ -214,12 +214,39 @@ __END__
 +    /* RFC 5746 - Secure Renegotiation */
 +    CipherSuite	TLS_EMPTY_RENEGOTIATION_INFO_SCSV         ={0x00,0xFF};
 +
++    /* RFC 4132 - Camellia cipher suites */
++    CipherSuite	TLS_RSA_WITH_CAMELLIA_128_CBC_SHA         ={0x00,0x41};
++    CipherSuite	TLS_DH_DSS_WITH_CAMELLIA_128_CBC_SHA      ={0x00,0x42};
++    CipherSuite	TLS_DH_RSA_WITH_CAMELLIA_128_CBC_SHA      ={0x00,0x43};
++    CipherSuite	TLS_DHE_DSS_WITH_CAMELLIA_128_CBC_SHA     ={0x00,0x44};
++    CipherSuite	TLS_DHE_RSA_WITH_CAMELLIA_128_CBC_SHA     ={0x00,0x45};
++    CipherSuite	TLS_DH_anon_WITH_CAMELLIA_128_CBC_SHA     ={0x00,0x46};
++    CipherSuite	TLS_RSA_WITH_CAMELLIA_256_CBC_SHA         ={0x00,0x84};
++    CipherSuite	TLS_DH_DSS_WITH_CAMELLIA_256_CBC_SHA      ={0x00,0x85};
++    CipherSuite	TLS_DH_RSA_WITH_CAMELLIA_256_CBC_SHA      ={0x00,0x86};
++    CipherSuite	TLS_DHE_DSS_WITH_CAMELLIA_256_CBC_SHA     ={0x00,0x87};
++    CipherSuite	TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA     ={0x00,0x88};
++    CipherSuite	TLS_DH_anon_WITH_CAMELLIA_256_CBC_SHA     ={0x00,0x89};
++
++    /* RFC 4162 - Addition of SEED Cipher Suites */
++    CipherSuite	TLS_RSA_WITH_SEED_CBC_SHA                 ={0x00,0x96};
++    CipherSuite	TLS_DH_DSS_WITH_SEED_CBC_SHA              ={0x00,0x97};
++    CipherSuite	TLS_DH_RSA_WITH_SEED_CBC_SHA              ={0x00,0x98};
++    CipherSuite	TLS_DHE_DSS_WITH_SEED_CBC_SHA             ={0x00,0x99};
++    CipherSuite	TLS_DHE_RSA_WITH_SEED_CBC_SHA             ={0x00,0x9A};
++    CipherSuite	TLS_DH_anon_WITH_SEED_CBC_SHA             ={0x00,0x9B};
++
 +    /* Tags for SSL 2 cipher kinds which are not specified for SSL 3. */
 +    CipherSuite	SSL_RSA_WITH_RC2_CBC_MD5                  ={0xFF,0x80};
 +    CipherSuite	SSL_RSA_WITH_IDEA_CBC_MD5                 ={0xFF,0x81};
 +    CipherSuite	SSL_RSA_WITH_DES_CBC_MD5                  ={0xFF,0x82};
 +    CipherSuite	SSL_RSA_WITH_3DES_EDE_CBC_MD5             ={0xFF,0x83};
 +    CipherSuite	SSL_NO_SUCH_CIPHERSUITE                   ={0xFF,0xFF};
++
++    /* Spec'd version of Netscape "experimental" ciphers. */
++    CipherSuite	SSL_RSA_FIPS_WITH_DES_CBC_SHA             ={0xFE,0xFE};
++    CipherSuite	SSL_RSA_FIPS_WITH_3DES_EDE_CBC_SHA        ={0xFE,0xFF};
++
 +    /***** /Patch additions *****/
 +
    } cipher_suite;  
@@ -227,7 +254,7 @@ __END__
      	   
 --- a/ssl/ssl.enums.c	2013-07-10 14:54:38.000000000 -0400
 +++ b/ssl/ssl.enums.c	2013-07-10 15:51:46.000000000 -0400
-@@ -698,6 +698,393 @@
+@@ -698,6 +698,473 @@
  		65412,
  		"TLS_ECDH_ECDSA_EXPORT_WITH_RC4_40_SHA",
  		0	},
@@ -280,6 +307,30 @@ __END__
 +	{
 +		58,
 +		"TLS_DH_anon_WITH_AES_256_CBC_SHA",
++		0	},
++	{
++		65,
++		"TLS_RSA_WITH_CAMELLIA_128_CBC_SHA",
++		0	},
++	{
++		66,
++		"TLS_DH_DSS_WITH_CAMELLIA_128_CBC_SHA",
++		0	},
++	{
++		67,
++		"TLS_DH_RSA_WITH_CAMELLIA_128_CBC_SHA",
++		0	},
++	{
++		68,
++		"TLS_DHE_DSS_WITH_CAMELLIA_128_CBC_SHA",
++		0	},
++	{
++		69,
++		"TLS_DHE_RSA_WITH_CAMELLIA_128_CBC_SHA",
++		0	},
++	{
++		70,
++		"TLS_DH_anon_WITH_CAMELLIA_128_CBC_SHA",
 +		0	},
 +	{
 +		49153,
@@ -466,6 +517,54 @@ __END__
 +		"TLS_DHE_RSA_WITH_AES_256_CBC_SHA256",
 +		0	},
 +	{
++		132,
++		"TLS_RSA_WITH_CAMELLIA_256_CBC_SHA",
++		0	},
++	{
++		133,
++		"TLS_DH_DSS_WITH_CAMELLIA_256_CBC_SHA",
++		0	},
++	{
++		134,
++		"TLS_DH_RSA_WITH_CAMELLIA_256_CBC_SHA",
++		0	},
++	{
++		135,
++		"TLS_DHE_DSS_WITH_CAMELLIA_256_CBC_SHA",
++		0	},
++	{
++		136,
++		"TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA",
++		0	},
++	{
++		137,
++		"TLS_DH_anon_WITH_CAMELLIA_256_CBC_SHA",
++ 		0	},
++       {
++               150,
++               "TLS_RSA_WITH_SEED_CBC_SHA",
++               0       },
++       {
++               151,
++               "TLS_DH_DSS_WITH_SEED_CBC_SHA",
++               0       },
++       {
++               152,
++               "TLS_DH_RSA_WITH_SEED_CBC_SHA",
++               0       },
++       {
++               153,
++               "TLS_DHE_DSS_WITH_SEED_CBC_SHA",
++               0       },
++       {
++               154,
++               "TLS_DHE_RSA_WITH_SEED_CBC_SHA",
++               0       },
++       {
++               155,
++               "TLS_DH_anon_WITH_SEED_CBC_SHA",
++               0       },
++	{
 +		24,
 +		"TLS_DH_anon_WITH_RC4_128_MD5",
 +		0	},
@@ -597,6 +696,14 @@ __END__
 +		255,
 +		"TLS_EMPTY_RENEGOTIATION_INFO_SCSV",
 +		0	},
++	{
++		65278,
++		"SSL_RSA_FIPS_WITH_DES_CBC_SHA",
++		0       },
++	{
++		65279,
++		"SSL_RSA_FIPS_WITH_3DES_EDE_CBC_SHA",
++		0       },
 +	{
 +		65408,
 +		"SSL_RSA_WITH_RC2_CBC_MD5",
